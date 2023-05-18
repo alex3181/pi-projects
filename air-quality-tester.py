@@ -25,4 +25,6 @@ ccs = adafruit_ccs811.CCS811(i2c)
 
 while True:
     sleep(5)
-    print("CO2: ", ccs.eco2, " TVOC:", ccs.tvoc)
+    print(
+        f"Carbon Dioxide (CO2): {ccs.eco2} ppm, Volitile Organic Compounds (TVOC):{ccs.tvoc} ppb"
+    )
