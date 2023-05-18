@@ -24,7 +24,7 @@ i2c = board.I2C()  # uses board.SCL and board.SDA
 ccs = adafruit_ccs811.CCS811(i2c)
 
 while True:
-    sleep(5)
     print(
         f"Carbon Dioxide (CO2): {ccs.eco2} ppm, Volitile Organic Compounds (TVOC):{ccs.tvoc} ppb"
     )
+    sleep(5)
