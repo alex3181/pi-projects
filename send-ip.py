@@ -9,5 +9,5 @@ while (True):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((LINODE_SERVER, LINODE_PORT))    
     except:
-        pass
-    time.sleep(30)
+        print (f"Unable to connect to {LINODE_SERVER}:{LINODE_PORT}")
+    time.sleep(300)
