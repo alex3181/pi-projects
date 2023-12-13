@@ -18,5 +18,15 @@ def run():
         time.sleep(30)
 
 
+<<<<<<< HEAD
 if __name__ == "__main__":
     run()
+=======
+while (True):
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((LINODE_SERVER, LINODE_PORT))    
+    except:
+        print (f"Unable to connect to {LINODE_SERVER}:{LINODE_PORT}")
+    time.sleep(300)
+>>>>>>> 3857931f6d7728d9b316582c8d1cfa197817e876
