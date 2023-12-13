@@ -1,23 +1,41 @@
-import picamera
-import RPi.GPIO as gpio
 
+# add button to pin 2 and pin 10
+# add buzzer to pin 11 and ground
+
+
+import picamera
+import RPi.GPIO as GPIO
+import time
 
 def take_photo(file_path):
-    with picamera.PiCamera() as camera:
-        camera.resolution = (1280, 720)  # Set the resolution as needed
-        camera.start_preview()
-        # Add a delay if needed to stabilize the camera
-        # For example: time.sleep(2)
-        camera.capture(file_path)
-        camera.stop_preview()
+	with picamera.PiCamera() as camera:
+        	camera.resolution = (1280, 720)  # Set the resolution as needed
+        	camera.start_preview()
+        	camera.capture(file_path)
+        	camera.stop_preview()
 
-def pressed_button():
+def clicked_button(channel):
+	print ("Button clicked")
+	GPIO.output(buzzer_pin, True)
+	time.sleep(0.3)
+	GPIO.output(buzzer_pin, False)	
+
 
 if __name__ == "__main__":
-    gpio.setmode(gpio.BOARD)
-    gpio.setup(10,gpio.IN,pull_up_down=gpio.PUD_DOWN)
+	
+	button_pin=10 
+	buzzer_pin=12
 
-    while True:
-        if gpio.input(10) == gpio.HIGH:
-            print ("Button was pushed")
+	GPIO.setmode(GPIO.BOARD) #Set GPIO mode
+	GPIO.setup(button_pin,GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+	GPIO.setup(buzzer_pin,GPIO.OUT)
+	GPIO.add_event_detect(button_pin, GPIO.RISING, callback=clicked_button, bouncetime=1000)
 
+	try:
+		print ("Waiting for button press...")
+		while True:
+			pass
+	except KeyboardInterrupt:
+		print (KeyboardInterrupt)
+	
+	GPIO.cleanup() #Clean up
