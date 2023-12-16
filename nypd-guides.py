@@ -2,7 +2,7 @@ import fitz  # imports the pymupdf library
 import os
 
 
-def extract_text_from_pdf(pdf_file_path):
+def extract_text_from_pdf(pdf_file_path) -> str:
     pdf_text = ""
     with fitz.open(pdf_file_path) as doc:  # open a document
         for page in doc:  # iterate the document pages
@@ -16,18 +16,25 @@ def extract_text_from_pdf(pdf_file_path):
     return pdf_text
 
 
-def list_files(directory):
+def list_files(directory) -> list:
     for root, dirs, files in os.walk(directory):
-        print(f"Current directory: {root}")
-        print("Files:")
-        for file in files:
-            print(os.path.join(root, file))
+        pass
+        # for file in files:
+        #     print(os.path.join(root, file))
+    return files
+
+
+def save_text_to_file(directory, file_name, text) -> None:
+    with open(directory + file_name[:-3] + "txt", "w") as f:
+        f.write(text)
 
 
 if __name__ == "__main__":
-    manuals_directory = "./manuals/"
-    pdf_file_path = "./manuals/202-02.pdf"
+    pdf_directory = "./pdf-manuals/"
+    text_directory = "./txt-manuals/"
 
-    # print(extract_text_from_pdf(pdf_file_path))
+    list_of_files = list_files(pdf_directory)
 
-list_files(manuals_directory)
+    for file in list_of_files:
+        file_text = extract_text_from_pdf(pdf_directory + file)
+        save_text_to_file(text_directory, file, file_text)
