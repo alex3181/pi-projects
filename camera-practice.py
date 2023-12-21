@@ -2,40 +2,40 @@
 # add button to pin 2 and pin 10
 # add buzzer to pin 11 and ground
 
+from picamera2 import Picamera2
+from gpiozero import Button, LED, Buzzer
+from signal import pause
+from time import sleep
 
-import picamera
-import RPi.GPIO as GPIO
-import time
+
+button = Button(17)
+buzzer = Buzzer(21)
+pic_counter=0
 
 def take_photo(file_path):
-	with picamera.PiCamera() as camera:
-        	camera.resolution = (1280, 720)  # Set the resolution as needed
-        	camera.start_preview()
-        	camera.capture(file_path)
-        	camera.stop_preview()
+	with Picamera2() as camera:
+		#camera_config = camera.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
+		#camera.configure(camera_config)
+		camera_config=camera.create_still_configuration()
+		camera.configure(camera_config)
+		camera.start()
+		sleep(2)
+		camera.capture_file(file_path)
+		# image = camera.capture_mage("main") # capture PIL images
+		camera.close()
 
-def clicked_button(channel):
-	print ("Button clicked")
-	GPIO.output(buzzer_pin, True)
-	time.sleep(0.3)
-	GPIO.output(buzzer_pin, False)	
+def pressed_button():
+	global pic_counter
+	buzzer.on()
+	sleep(0.15)
+	buzzer.off()
+	file_name="pic"+str(pic_counter)+".jpg"
+	take_photo(file_name)
+	print("File "+file_name+" created")
+	pic_counter=pic_counter+1
 
 
-if __name__ == "__main__":
+
+button.when_pressed=pressed_button
+pause()
 	
-	button_pin=10 
-	buzzer_pin=12
-
-	GPIO.setmode(GPIO.BOARD) #Set GPIO mode
-	GPIO.setup(button_pin,GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-	GPIO.setup(buzzer_pin,GPIO.OUT)
-	GPIO.add_event_detect(button_pin, GPIO.RISING, callback=clicked_button, bouncetime=1000)
-
-	try:
-		print ("Waiting for button press...")
-		while True:
-			pass
-	except KeyboardInterrupt:
-		print (KeyboardInterrupt)
-	
-	GPIO.cleanup() #Clean up
