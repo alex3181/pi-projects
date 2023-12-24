@@ -32,7 +32,7 @@ def send_email(file_name):
     # Email configuration
     sender_email = "azektser@gmail.com"  # Replace with your email
     receiver_email = "alex3181@yahoo.com"  # Replace with recipient's email
-    password = "ABMZgoo001"  # Replace with your email password
+    password = "jesb mipc zufy rmvz"  # Replace with your email password
     # Create a message object
     msg = EmailMessage()
     msg["Subject"] = "Sending a picture attachment"
@@ -67,7 +67,7 @@ def pressed_button():
     take_photo(file_name)
     print("File " + file_name + " created")
     pic_counter = pic_counter + 1
-
+    send_email(file_name)	
 
 if __name__ == "__main__":
     button.when_pressed = pressed_button
