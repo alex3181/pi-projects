@@ -37,12 +37,15 @@ try:
             elif crypto["name"] == "Bitcoin Cash":
                 prices["Bitcoin Cash"] = crypto["quote"]["USD"]["price"]
 
+        # for key, value in prices.items():
+        #     lcd.text(key, 1, "center")
+        #     lcd.text(f"${value:,.2f}", 2, "center")
+        #     sleep(5)
+
         for key, value in prices.items():
-            lcd.text(key, 1, "center")
-            lcd.text(f"${value:,.2f}", 2, "center")
+            lcd.text(f"{key}: ${value:,.2f}", 1, "center")
             sleep(5)
         # display on screen
-
 
 except (ConnectionError, Timeout, TooManyRedirects) as e:
     print(e)
