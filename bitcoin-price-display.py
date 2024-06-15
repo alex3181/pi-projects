@@ -1,5 +1,6 @@
 # enable i2c interface in raspi-config
 # pip install rpi_lcd, requests
+# i2C address: 27
 
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
