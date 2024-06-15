@@ -29,13 +29,13 @@ try:
         prices = {}
         for crypto in data["data"]:
             if crypto["name"] == "Bitcoin":
-                prices["Bitcoin"] = crypto["quote"]["USD"]["price"]
+                prices["BTC"] = crypto["quote"]["USD"]["price"]
             elif crypto["name"] == "Ethereum":
-                prices["Ethereum"] = crypto["quote"]["USD"]["price"]
+                prices["ETH"] = crypto["quote"]["USD"]["price"]
             elif crypto["name"] == "Litecoin":
-                prices["Litecoin"] = crypto["quote"]["USD"]["price"]
+                prices["LTC"] = crypto["quote"]["USD"]["price"]
             elif crypto["name"] == "Bitcoin Cash":
-                prices["Bitcoin Cash"] = crypto["quote"]["USD"]["price"]
+                prices["BCH"] = crypto["quote"]["USD"]["price"]
 
         # for key, value in prices.items():
         #     lcd.text(key, 1, "center")
@@ -45,6 +45,7 @@ try:
         for key, value in prices.items():
             lcd.text(f"{key}: ${value:,.2f}", 1, "center")
             sleep(5)
+
         # display on screen
 
 except (ConnectionError, Timeout, TooManyRedirects) as e:
