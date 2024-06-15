@@ -1,5 +1,5 @@
 # enable i2c interface in raspi-config
-# pip install rpi_lcd
+# pip install rpi_lcd, requests
 
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
@@ -34,16 +34,8 @@ try:
                 prices["Ethereum"] = crypto["quote"]["USD"]["price"]
             elif crypto["name"] == "Litecoin":
                 prices["Litecoin"] = crypto["quote"]["USD"]["price"]
-            elif crypto["name"] == "Cardano":
-                prices["Cardano"] = crypto["quote"]["USD"]["price"]
-            elif crypto["name"] == "Dogecoin":
-                prices["Dogecoin"] = crypto["quote"]["USD"]["price"]
             elif crypto["name"] == "Bitcoin Cash":
                 prices["Bitcoin Cash"] = crypto["quote"]["USD"]["price"]
-            elif crypto["name"] == "Bitcoin SV":
-                prices["Bitcoin SV"] = crypto["quote"]["USD"]["price"]
-            elif crypto["name"] == "Monero":
-                prices["Monero"] = crypto["quote"]["USD"]["price"]
 
         for key, value in prices.items():
             lcd.text(key, 1, "center")
