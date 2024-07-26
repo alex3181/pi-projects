@@ -118,6 +118,7 @@ class window(QWidget):
         self.mainLayout.addWidget(self.etherium_logo_label)
         self.mainLayout.addWidget(self.litecoin_logo_label)
 
+        self.setCursor(Qt.BlankCursor)
         self.runDisplay()
 
     def runDisplay(self):
@@ -139,8 +140,8 @@ class window(QWidget):
 def main():
     app = QApplication(sys.argv)
     ex = window()
-    # ex.showFullScreen() #show fullscreen
-    # ex.show()
+    ex.showFullScreen()  # show fullscreen
+    ex.show()
     sys.exit(app.exec_())
 
 
