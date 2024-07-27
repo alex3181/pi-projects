@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=My Python Program
+Comment=This is my Python program
+Exec=/home/alex3181/Projects/pi-projects/qt-display.py
+Icon=/home/alex3181/Projects/pi-projects/computer.jpg
+Terminal=false
+Type=Application
+Categories=Utility;Application;
