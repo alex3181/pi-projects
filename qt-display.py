@@ -78,8 +78,8 @@ class window(QWidget):
         self.gap2 = Color("black")
         self.gap2.setMaximumHeight(max_gap)
 
-        crypto_logo_height = 45
-        info_label_min_height = 60
+        crypto_logo_height = 50
+        info_label_min_height = 75
 
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
@@ -116,7 +116,7 @@ class window(QWidget):
         self.dateTimeLayout.addWidget(self.date_widget)
         self.date_time_widget = QWidget()
         self.date_time_widget.setLayout(self.dateTimeLayout)
-        self.date_time_widget.setMinimumHeight(100)
+        self.date_time_widget.setFixedHeight(200)
 
         self.setLayout(self.mainLayout)
         self.mainLayout.addWidget(self.date_time_widget)
