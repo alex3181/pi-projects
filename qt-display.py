@@ -80,14 +80,14 @@ class window(QWidget):
 
         crypto_logo_height = 50
         info_label_height = 50
-        clock_label_height = 100
+        clock_label_height = 130
 
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
         pixmap = QPixmap("images/bitcoin.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.bitcoin_logo_label.setPixmap(pixmap_resized)
-        self.bitcoin_logo_label.setFixedHeight(info_label_height)
+        # self.bitcoin_logo_label.setFixedHeight(info_label_height)
         # self.bitcoin_logo_label.setText = "Bitcoin"
 
         # create label with etherium logo
@@ -95,7 +95,7 @@ class window(QWidget):
         pixmap = QPixmap("images/etherium.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.etherium_logo_label.setPixmap(pixmap_resized)
-        self.etherium_logo_label.setFixedHeight(info_label_height)
+        # self.etherium_logo_label.setFixedHeight(info_label_height)
         # self.etherium_logo_label.setText = "etherium"
 
         # create label with litecoin logo
@@ -103,7 +103,7 @@ class window(QWidget):
         pixmap = QPixmap("images/litecoin.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.litecoin_logo_label.setPixmap(pixmap_resized)
-        self.litecoin_logo_label.setFixedHeight(info_label_height)
+        # self.litecoin_logo_label.setFixedHeight(info_label_height)
         # self.litecoin_logo_label.setText = "litecoin_logo_label"
 
         # set up layouts
