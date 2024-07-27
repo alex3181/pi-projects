@@ -79,14 +79,15 @@ class window(QWidget):
         self.gap2.setMaximumHeight(max_gap)
 
         crypto_logo_height = 50
-        info_label_min_height = 75
+        info_label_height = 75
+        clock_label_height = 150
 
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
         pixmap = QPixmap("images/bitcoin.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.bitcoin_logo_label.setPixmap(pixmap_resized)
-        self.bitcoin_logo_label.setFixedHeight(info_label_min_height)
+        self.bitcoin_logo_label.setFixedHeight(info_label_height)
         # self.bitcoin_logo_label.setText = "Bitcoin"
 
         # create label with etherium logo
@@ -94,7 +95,7 @@ class window(QWidget):
         pixmap = QPixmap("images/etherium.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.etherium_logo_label.setPixmap(pixmap_resized)
-        self.etherium_logo_label.setFixedHeight(info_label_min_height)
+        self.etherium_logo_label.setFixedHeight(info_label_height)
         # self.etherium_logo_label.setText = "etherium"
 
         # create label with litecoin logo
@@ -102,7 +103,7 @@ class window(QWidget):
         pixmap = QPixmap("images/litecoin.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.litecoin_logo_label.setPixmap(pixmap_resized)
-        self.litecoin_logo_label.setFixedHeight(info_label_min_height)
+        self.litecoin_logo_label.setFixedHeight(info_label_height)
         # self.litecoin_logo_label.setText = "litecoin_logo_label"
 
         # set up layouts
@@ -116,7 +117,7 @@ class window(QWidget):
         self.dateTimeLayout.addWidget(self.date_widget)
         self.date_time_widget = QWidget()
         self.date_time_widget.setLayout(self.dateTimeLayout)
-        self.date_time_widget.setFixedHeight(200)
+        self.date_time_widget.setFixedHeight(clock_label_height)
 
         self.setLayout(self.mainLayout)
         self.mainLayout.addWidget(self.date_time_widget)
