@@ -79,8 +79,8 @@ class window(QWidget):
         self.gap2.setMaximumHeight(max_gap)
 
         crypto_logo_height = 50
-        info_label_height = 60
-        clock_label_height = 140
+        info_label_height = 50
+        clock_label_height = 130
 
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
