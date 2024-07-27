@@ -115,11 +115,11 @@ class window(QWidget):
         self.mainLayout.addWidget(self.date_time_widget)
         self.mainLayout.addWidget(self.gap2)
 
-        self.mainLayout.addWidget(Color("red"))
+        # self.mainLayout.addWidget(Color("red"))
         self.mainLayout.addWidget(self.bitcoin_logo_label)
         self.mainLayout.addWidget(self.etherium_logo_label)
         self.mainLayout.addWidget(self.litecoin_logo_label)
-        self.mainLayout.addWidget(Color("green"))
+        # self.mainLayout.addWidget(Color("green"))
 
         self.setCursor(Qt.BlankCursor)
         self.runDisplay()
@@ -129,7 +129,7 @@ class window(QWidget):
         self.timer.timeout.connect(self.updateInfo)
         self.timer.start(1000)  # Update every second
         self.updateInfo()
-        self.resize(800, 480)
+        # self.resize(800, 480)
         self.setWindowTitle("PyQt5")
         self.show()
 
