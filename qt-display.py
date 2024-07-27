@@ -114,11 +114,12 @@ class window(QWidget):
         self.setLayout(self.mainLayout)
         self.mainLayout.addWidget(self.date_time_widget)
         self.mainLayout.addWidget(self.gap2)
-        # self.mainLayout.addWidget(Color("green"))
-        # self.mainLayout.addWidget(Color("red"))
+
+        self.mainLayout.addWidget(Color("red"))
         self.mainLayout.addWidget(self.bitcoin_logo_label)
         self.mainLayout.addWidget(self.etherium_logo_label)
         self.mainLayout.addWidget(self.litecoin_logo_label)
+        self.mainLayout.addWidget(Color("green"))
 
         self.setCursor(Qt.BlankCursor)
         self.runDisplay()
