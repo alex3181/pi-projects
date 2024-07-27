@@ -21,18 +21,20 @@ class window(QWidget):
     def __init__(self, parent=None):
         super(window, self).__init__(parent)
 
+        font_family = "Helvetica"  # "Arial"
+
         date_font = QFont()
-        date_font.setFamily("Arial")
+        date_font.setFamily(font_family)
         date_font.setPointSize(35)
         date_font.bold()
 
         day_of_week_font = QFont()
-        day_of_week_font.setFamily("Arial")
+        day_of_week_font.setFamily(font_family)
         day_of_week_font.setPointSize(35)
         day_of_week_font.bold()
 
         time_font = QFont()
-        time_font.setFamily("Arial")
+        time_font.setFamily(font_family)
         time_font.setPointSize(55)
         time_font.bold()
 
@@ -76,7 +78,7 @@ class window(QWidget):
         self.gap2 = Color("black")
         self.gap2.setMaximumHeight(max_gap)
 
-        crypto_logo_height = 50
+        crypto_logo_height = 45
 
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
@@ -107,7 +109,7 @@ class window(QWidget):
         self.dateTimeLayout.addWidget(self.date_widget)
         self.date_time_widget = QWidget()
         self.date_time_widget.setLayout(self.dateTimeLayout)
-        self.date_time_widget.setMinimumHeight(200)
+        self.date_time_widget.setMinimumHeight(150)
 
         self.setLayout(self.mainLayout)
         self.mainLayout.addWidget(self.date_time_widget)
