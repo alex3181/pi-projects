@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 import datetime
 
@@ -140,7 +142,7 @@ class window(QWidget):
 def main():
     app = QApplication(sys.argv)
     ex = window()
-    ex.showFullScreen()  # show fullscreen
+    # ex.showFullScreen()  # show fullscreen
     ex.show()
     sys.exit(app.exec_())
 
