@@ -43,6 +43,7 @@ class window(QWidget):
 
         # Set up a main Layout. It will be vertical
         self.mainLayout = QVBoxLayout()
+        self.setContentsMargins(0, 0, 0, 0)
         # self.mainLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # Set up a date and time Layout. It will be horizontal
@@ -80,7 +81,7 @@ class window(QWidget):
 
         crypto_logo_height = 50
         info_label_height = 50
-        clock_label_height = 130
+        clock_label_height = 170
 
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
@@ -120,6 +121,8 @@ class window(QWidget):
         self.date_time_widget.setFixedHeight(clock_label_height)
 
         self.setLayout(self.mainLayout)
+        # Adjust layout spacing and margins
+
         self.mainLayout.addWidget(self.date_time_widget)
         self.mainLayout.addWidget(self.gap2)
 
