@@ -140,7 +140,7 @@ class window(QWidget):
         self.timer.timeout.connect(self.updateInfo)
         self.timer.start(1000)  # Update every second
         self.updateInfo()
-        self.resize(800, 480)
+        self.resize(800, 440)
         self.setWindowTitle("PyQt5")
         self.show()
 
