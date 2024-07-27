@@ -79,24 +79,28 @@ class window(QWidget):
         self.gap2.setMaximumHeight(max_gap)
 
         crypto_logo_height = 45
+        info_label_min_height = 60
 
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
         pixmap = QPixmap("images/bitcoin.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.bitcoin_logo_label.setPixmap(pixmap_resized)
+        self.bitcoin_logo_label.setMinimumHeight(info_label_min_height)
 
         # create label with etherium logo
         self.etherium_logo_label = QLabel(self)
         pixmap = QPixmap("images/etherium.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.etherium_logo_label.setPixmap(pixmap_resized)
+        self.etherium_logo_label.setMinimumHeight(info_label_min_height)
 
         # create label with litecoin logo
         self.litecoin_logo_label = QLabel(self)
         pixmap = QPixmap("images/litecoin.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.litecoin_logo_label.setPixmap(pixmap_resized)
+        self.litecoin_logo_label.setMinimumHeight(info_label_min_height)
 
         # set up layouts
         self.dateLayout.addWidget(self.week_day_label)
@@ -109,7 +113,7 @@ class window(QWidget):
         self.dateTimeLayout.addWidget(self.date_widget)
         self.date_time_widget = QWidget()
         self.date_time_widget.setLayout(self.dateTimeLayout)
-        self.date_time_widget.setMinimumHeight(150)
+        self.date_time_widget.setMinimumHeight(100)
 
         self.setLayout(self.mainLayout)
         self.mainLayout.addWidget(self.date_time_widget)
@@ -129,7 +133,7 @@ class window(QWidget):
         self.timer.timeout.connect(self.updateInfo)
         self.timer.start(1000)  # Update every second
         self.updateInfo()
-        # self.resize(800, 480)
+        self.resize(800, 480)
         self.setWindowTitle("PyQt5")
         self.show()
 
