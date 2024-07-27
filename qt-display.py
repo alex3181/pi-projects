@@ -86,21 +86,24 @@ class window(QWidget):
         pixmap = QPixmap("images/bitcoin.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.bitcoin_logo_label.setPixmap(pixmap_resized)
-        self.bitcoin_logo_label.setMinimumHeight(info_label_min_height)
+        self.bitcoin_logo_label.setFixedHeight(info_label_min_height)
+        # self.bitcoin_logo_label.setText = "Bitcoin"
 
         # create label with etherium logo
         self.etherium_logo_label = QLabel(self)
         pixmap = QPixmap("images/etherium.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.etherium_logo_label.setPixmap(pixmap_resized)
-        self.etherium_logo_label.setMinimumHeight(info_label_min_height)
+        self.etherium_logo_label.setFixedHeight(info_label_min_height)
+        # self.etherium_logo_label.setText = "etherium"
 
         # create label with litecoin logo
         self.litecoin_logo_label = QLabel(self)
         pixmap = QPixmap("images/litecoin.png")
         pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
         self.litecoin_logo_label.setPixmap(pixmap_resized)
-        self.litecoin_logo_label.setMinimumHeight(info_label_min_height)
+        self.litecoin_logo_label.setFixedHeight(info_label_min_height)
+        # self.litecoin_logo_label.setText = "litecoin_logo_label"
 
         # set up layouts
         self.dateLayout.addWidget(self.week_day_label)
