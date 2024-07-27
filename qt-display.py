@@ -79,7 +79,7 @@ class window(QWidget):
         self.gap2 = Color("black")
         self.gap2.setMaximumHeight(max_gap)
 
-        crypto_logo_height = 50
+        crypto_logo_height = 55
         info_label_height = 50
         clock_label_height = 170
 
@@ -140,7 +140,7 @@ class window(QWidget):
         self.timer.timeout.connect(self.updateInfo)
         self.timer.start(1000)  # Update every second
         self.updateInfo()
-        self.resize(800, 440)
+        self.resize(800, 480)
         self.setWindowTitle("PyQt5")
         self.show()
 
@@ -154,7 +154,7 @@ class window(QWidget):
 def main():
     app = QApplication(sys.argv)
     ex = window()
-    ex.showFullScreen()  # show fullscreen
+    # ex.showFullScreen()  # show fullscreen
     ex.show()
     sys.exit(app.exec_())
 
