@@ -1,5 +1,6 @@
 import sys
 import datetime
+import pyautogui
 
 
 from requests import Request, Session
@@ -63,11 +64,11 @@ class window(QWidget):
 
         # Set up 3 information layouts. They will be horizontal
         self.info_layout_1 = QHBoxLayout()
-        self.info_layout_1.setContentsMargins(15, 0, 15, 0)
+        self.info_layout_1.setContentsMargins(30, 0, 10, 0)
         self.info_layout_2 = QHBoxLayout()
-        self.info_layout_2.setContentsMargins(15, 0, 15, 0)
+        self.info_layout_2.setContentsMargins(30, 0, 10, 0)
         self.info_layout_3 = QHBoxLayout()
-        self.info_layout_3.setContentsMargins(15, 0, 15, 0)
+        self.info_layout_3.setContentsMargins(30, 0, 10, 0)
 
         # create time label
         self.time_label = QLabel(self)
@@ -244,6 +245,9 @@ class window(QWidget):
             self.bitcoin_price_label.setText("Error!")
             self.litecoin_price_label.setText("Error!")
             self.etherium_price_label.setText("Error!")
+        finally:
+            pyautogui.moveTo(150, 150)
+            pyautogui.click()
 
 
 def main():
