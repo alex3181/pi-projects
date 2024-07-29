@@ -64,11 +64,11 @@ class window(QWidget):
 
         # Set up 3 information layouts. They will be horizontal
         self.info_layout_1 = QHBoxLayout()
-        self.info_layout_1.setContentsMargins(30, 0, 10, 0)
+        self.info_layout_1.setContentsMargins(50, 0, 10, 0)
         self.info_layout_2 = QHBoxLayout()
-        self.info_layout_2.setContentsMargins(30, 0, 10, 0)
+        self.info_layout_2.setContentsMargins(50, 0, 10, 0)
         self.info_layout_3 = QHBoxLayout()
-        self.info_layout_3.setContentsMargins(30, 0, 10, 0)
+        self.info_layout_3.setContentsMargins(50, 0, 10, 0)
 
         # create time label
         self.time_label = QLabel(self)
