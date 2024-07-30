@@ -51,6 +51,7 @@ class window(QWidget):
 
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
         # self.setWindowFlag(Qt.FramelessWindowHint)
+        self.setStyleSheet("background-color: rgb(220, 220, 220);")
 
         # Set up a main Layout. It will be vertical
         self.main_layout = QVBoxLayout()
@@ -209,51 +210,99 @@ class window(QWidget):
 
     def updateInfoData(self):
 
-        url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
-        parameters = {"start": "1", "limit": "150", "convert": "USD"}
-        headers = {
-            "Accepts": "application/json",
-            "X-CMC_PRO_API_KEY": "02e9907d-56c4-46c6-a9c7-d14c7af53f6f",
-        }
+        # Get the current time
+        current_time = datetime.datetime.now().time()
 
-        session = Session()
-        session.headers.update(headers)
+        # Define the time range
+        start_time = datetime.time(0, 0)  # Midnight
+        end_time = datetime.time(6, 0)  # 6 AM
 
-        try:
-            response = session.get(url, params=parameters)
-            data = json.loads(response.text)
-            price_BTC = data["data"][0]["quote"]["USD"]["price"]
-            price_ETH = data["data"][1]["quote"]["USD"]["price"]
-            # print(f"${price:,.2f}")
-            prices = {}
-            for crypto in data["data"]:
-                if crypto["name"] == "Bitcoin":
-                    prices["BTC"] = crypto["quote"]["USD"]["price"]
-                elif crypto["name"] == "Ethereum":
-                    prices["ETH"] = crypto["quote"]["USD"]["price"]
-                elif crypto["name"] == "Litecoin":
-                    prices["LTC"] = crypto["quote"]["USD"]["price"]
-            bitcoin_price = round(prices["BTC"])
-            litecoin_price = round(prices["LTC"])
-            etherium_price = round(prices["ETH"])
-            self.bitcoin_price_label.setText(f"${bitcoin_price:,}")
-            self.litecoin_price_label.setText(f"${litecoin_price:,}")
-            self.etherium_price_label.setText(f"${etherium_price:,}")
+        # Check if current time is not between 6 AM and midnight
+        if not (start_time <= current_time <= end_time):
+            url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
+            parameters = {"start": "1", "limit": "150", "convert": "USD"}
+            headers = {
+                "Accepts": "application/json",
+                "X-CMC_PRO_API_KEY": "02e9907d-56c4-46c6-a9c7-d14c7af53f6f",
+            }
 
-        except (ConnectionError, Timeout, TooManyRedirects) as e:
-            print(e)
-            self.bitcoin_price_label.setText("Error!")
-            self.litecoin_price_label.setText("Error!")
-            self.etherium_price_label.setText("Error!")
-        finally:
-            pyautogui.moveTo(150, 150)
-            pyautogui.click()
+            session = Session()
+            session.headers.update(headers)
+
+            try:
+                response = session.get(url, params=parameters)
+                data = json.loads(response.text)
+                price_BTC = data["data"][0]["quote"]["USD"]["price"]
+                price_ETH = data["data"][1]["quote"]["USD"]["price"]
+                # print(f"${price:,.2f}")
+                prices = {}
+                for crypto in data["data"]:
+                    if crypto["name"] == "Bitcoin":
+                        prices["BTC"] = crypto["quote"]["USD"]["price"]
+                        prices["BTC-24-CHANGE"] = crypto["quote"]["USD"][
+                            "percent_change_24h"
+                        ]
+                    elif crypto["name"] == "Ethereum":
+                        prices["ETH"] = crypto["quote"]["USD"]["price"]
+                        prices["ETH-24-CHANGE"] = crypto["quote"]["USD"][
+                            "percent_change_24h"
+                        ]
+                    elif crypto["name"] == "Litecoin":
+                        prices["LTC"] = crypto["quote"]["USD"]["price"]
+                        prices["LTC-24-CHANGE"] = crypto["quote"]["USD"][
+                            "percent_change_24h"
+                        ]
+
+                bitcoin_price = round(prices["BTC"])
+                litecoin_price = round(prices["LTC"])
+                etherium_price = round(prices["ETH"])
+                bitcoin_price_change = round(prices["BTC-24-CHANGE"], 2)
+                litecoin_price_change = round(prices["LTC-24-CHANGE"], 2)
+                etherium_price_change = round(prices["ETH-24-CHANGE"], 2)
+                if bitcoin_price_change < 0:
+                    bitcoin_price_change = bitcoin_price_change * -1
+                    self.bitcoin_price_label.setText(
+                        f"${bitcoin_price:,} (24 Hour: - {bitcoin_price_change:,}%)"
+                    )
+                else:
+                    self.bitcoin_price_label.setText(
+                        f"${bitcoin_price:,} (24 Hour: + {bitcoin_price_change:,}%)"
+                    )
+
+                if litecoin_price_change < 0:
+                    litecoin_price_change = litecoin_price_change * -1
+                    self.litecoin_price_label.setText(
+                        f"${litecoin_price:,} (24 Hour: - {litecoin_price_change:,}%)"
+                    )
+                else:
+                    self.litecoin_price_label.setText(
+                        f"${litecoin_price:,} (24 Hour: + {litecoin_price_change:,}%)"
+                    )
+
+                if etherium_price_change < 0:
+                    etherium_price_change = etherium_price_change * -1
+                    self.etherium_price_label.setText(
+                        f"${etherium_price:,} (24 Hours: - {etherium_price_change:,}%)"
+                    )
+                else:
+                    self.etherium_price_label.setText(
+                        f"${etherium_price:,} (24 Hours: + {etherium_price_change:,}%)"
+                    )
+
+            except (ConnectionError, Timeout, TooManyRedirects) as e:
+                print(e)
+                self.bitcoin_price_label.setText("Error!")
+                self.litecoin_price_label.setText("Error!")
+                self.etherium_price_label.setText("Error!")
+            finally:
+                pyautogui.moveTo(150, 150)
+                pyautogui.click()
 
 
 def main():
     app = QApplication(sys.argv)
     ex = window()
-    ex.showFullScreen()  # show fullscreen
+    # ex.showFullScreen()  # show fullscreen
     ex.show()
     sys.exit(app.exec_())
 
