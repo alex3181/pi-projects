@@ -97,6 +97,7 @@ class window(QWidget):
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.bitcoin_logo_label.setPixmap(pixmap_resized)
         self.bitcoin_logo_label.setFixedWidth(logo_label_width)
+        self.bitcoin_logo_label.setAlignment(Qt.AlignLeft)
 
         # create label with etherium logo
         self.etherium_logo_label = QLabel(self)
@@ -104,6 +105,7 @@ class window(QWidget):
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.etherium_logo_label.setPixmap(pixmap_resized)
         self.etherium_logo_label.setFixedWidth(logo_label_width)
+        self.etherium_logo_label.setAlignment(Qt.AlignLeft)
 
         # create label with litecoin logo
         self.litecoin_logo_label = QLabel(self)
@@ -111,6 +113,7 @@ class window(QWidget):
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.litecoin_logo_label.setPixmap(pixmap_resized)
         self.litecoin_logo_label.setFixedWidth(logo_label_width)
+        self.litecoin_logo_label.setAlignment(Qt.AlignLeft)
 
         # create label with dow logo
         self.dow_logo_label = QLabel(self)
@@ -118,6 +121,7 @@ class window(QWidget):
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.dow_logo_label.setPixmap(pixmap_resized)
         self.dow_logo_label.setFixedWidth(logo_label_width)
+        self.dow_logo_label.setAlignment(Qt.AlignRight)
 
         # create label with nasdaq logo
         self.nasdaq_logo_label = QLabel(self)
@@ -125,6 +129,7 @@ class window(QWidget):
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.nasdaq_logo_label.setPixmap(pixmap_resized)
         self.nasdaq_logo_label.setFixedWidth(logo_label_width)
+        self.dow_logo_label.setAlignment(Qt.AlignRight)
 
         # create label with sp500 logo
         self.sp500_logo_label = QLabel(self)
@@ -132,43 +137,49 @@ class window(QWidget):
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.sp500_logo_label.setPixmap(pixmap_resized)
         self.sp500_logo_label.setFixedWidth(logo_label_width)
+        self.dow_logo_label.setAlignment(Qt.AlignRight)
 
         # create bitcoin price label
         self.bitcoin_price_label = QLabel(self)
         bitcoin_price = 69000.32
         self.bitcoin_price_label.setText(f"${round(bitcoin_price):,}")
         self.bitcoin_price_label.setFont(price_font)
-        self.bitcoin_price_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        self.bitcoin_price_label.setAlignment(Qt.AlignLeft)
 
         # create litecoin price label
         self.litecoin_price_label = QLabel(self)
         litecoin_price = 76.32
         self.litecoin_price_label.setText(f"${round(litecoin_price):,}")
         self.litecoin_price_label.setFont(price_font)
+        self.litecoin_price_label.setAlignment(Qt.AlignLeft)
 
         # create etherium price label
         self.etherium_price_label = QLabel(self)
         etherium_price = 3450.36
         self.etherium_price_label.setText(f"${round(etherium_price):,}")
         self.etherium_price_label.setFont(price_font)
+        self.etherium_price_label.setAlignment(Qt.AlignLeft)
 
         # create dow price label
         self.dow_price_label = QLabel(self)
         dow_price = 39700.00
         self.dow_price_label.setText(f"${round(dow_price):,}")
         self.dow_price_label.setFont(price_font)
+        self.dow_price_label.setAlignment(Qt.AlignRight)
 
         # create nasdaq price label
         self.nasdaq_price_label = QLabel(self)
         nasdaq_price = 16700.36
         self.nasdaq_price_label.setText(f"${round(nasdaq_price):,}")
         self.nasdaq_price_label.setFont(price_font)
+        self.nasdaq_price_label.setAlignment(Qt.AlignRight)
 
         # create sp500 price label
         self.sp500_price_label = QLabel(self)
         sp500_price = 5340.36
         self.sp500_price_label.setText(f"${round(sp500_price):,}")
         self.sp500_price_label.setFont(price_font)
+        self.sp500_price_label.setAlignment(Qt.AlignRight)
 
         # set date and time layouts
         self.date_layout.addWidget(self.week_day_label)
