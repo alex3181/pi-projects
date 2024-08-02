@@ -1,6 +1,7 @@
 import sys
 import datetime
 import pyautogui
+import yfinance as yf
 
 
 from requests import Request, Session
@@ -44,10 +45,10 @@ class window(QWidget):
         time_font.setPointSize(70)
         time_font.bold()
 
-        crypto_price_font = QFont()
-        crypto_price_font.setFamily(font_family)
-        crypto_price_font.setPointSize(30)
-        crypto_price_font.bold()
+        price_font = QFont()
+        price_font.setFamily(font_family)
+        price_font.setPointSize(25)
+        price_font.bold()
 
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
         # self.setWindowFlag(Qt.FramelessWindowHint)
@@ -85,50 +86,89 @@ class window(QWidget):
         self.week_day_label.setFont(day_of_week_font)
         self.week_day_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        crypto_logo_height = 55
-        crypto_logo_label_width = 70
-        info_widget_height = 55
+        logo_height = 50
+        logo_label_width = 50
+        info_widget_height = 50
         clock_label_height = 160
 
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
         pixmap = QPixmap("images/bitcoin.png")
-        pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
+        pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.bitcoin_logo_label.setPixmap(pixmap_resized)
-        self.bitcoin_logo_label.setFixedWidth(crypto_logo_label_width)
+        self.bitcoin_logo_label.setFixedWidth(logo_label_width)
 
         # create label with etherium logo
         self.etherium_logo_label = QLabel(self)
         pixmap = QPixmap("images/etherium.png")
-        pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
+        pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.etherium_logo_label.setPixmap(pixmap_resized)
-        self.etherium_logo_label.setFixedWidth(crypto_logo_label_width)
+        self.etherium_logo_label.setFixedWidth(logo_label_width)
 
         # create label with litecoin logo
         self.litecoin_logo_label = QLabel(self)
         pixmap = QPixmap("images/litecoin.png")
-        pixmap_resized = pixmap.scaledToHeight(crypto_logo_height)
+        pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.litecoin_logo_label.setPixmap(pixmap_resized)
-        self.litecoin_logo_label.setFixedWidth(crypto_logo_label_width)
+        self.litecoin_logo_label.setFixedWidth(logo_label_width)
+
+        # create label with dow logo
+        self.dow_logo_label = QLabel(self)
+        pixmap = QPixmap("images/dow.png")
+        pixmap_resized = pixmap.scaledToHeight(logo_height)
+        self.dow_logo_label.setPixmap(pixmap_resized)
+        self.dow_logo_label.setFixedWidth(logo_label_width)
+
+        # create label with nasdaq logo
+        self.nasdaq_logo_label = QLabel(self)
+        pixmap = QPixmap("images/nasdaq.png")
+        pixmap_resized = pixmap.scaledToHeight(logo_height)
+        self.nasdaq_logo_label.setPixmap(pixmap_resized)
+        self.nasdaq_logo_label.setFixedWidth(logo_label_width)
+
+        # create label with sp500 logo
+        self.sp500_logo_label = QLabel(self)
+        pixmap = QPixmap("images/sp500.png")
+        pixmap_resized = pixmap.scaledToHeight(logo_height)
+        self.sp500_logo_label.setPixmap(pixmap_resized)
+        self.sp500_logo_label.setFixedWidth(logo_label_width)
 
         # create bitcoin price label
         self.bitcoin_price_label = QLabel(self)
         bitcoin_price = 69000.32
         self.bitcoin_price_label.setText(f"${round(bitcoin_price):,}")
-        self.bitcoin_price_label.setFont(crypto_price_font)
+        self.bitcoin_price_label.setFont(price_font)
         self.bitcoin_price_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
 
         # create litecoin price label
         self.litecoin_price_label = QLabel(self)
         litecoin_price = 76.32
         self.litecoin_price_label.setText(f"${round(litecoin_price):,}")
-        self.litecoin_price_label.setFont(crypto_price_font)
+        self.litecoin_price_label.setFont(price_font)
 
-        # create litecoin price label
+        # create etherium price label
         self.etherium_price_label = QLabel(self)
         etherium_price = 3450.36
         self.etherium_price_label.setText(f"${round(etherium_price):,}")
-        self.etherium_price_label.setFont(crypto_price_font)
+        self.etherium_price_label.setFont(price_font)
+
+        # create dow price label
+        self.dow_price_label = QLabel(self)
+        dow_price = 39700.00
+        self.dow_price_label.setText(f"${round(dow_price):,}")
+        self.dow_price_label.setFont(price_font)
+
+        # create nasdaq price label
+        self.nasdaq_price_label = QLabel(self)
+        nasdaq_price = 16700.36
+        self.nasdaq_price_label.setText(f"${round(nasdaq_price):,}")
+        self.nasdaq_price_label.setFont(price_font)
+
+        # create sp500 price label
+        self.sp500_price_label = QLabel(self)
+        sp500_price = 5340.36
+        self.sp500_price_label.setText(f"${round(sp500_price):,}")
+        self.sp500_price_label.setFont(price_font)
 
         # set date and time layouts
         self.date_layout.addWidget(self.week_day_label)
@@ -145,12 +185,19 @@ class window(QWidget):
         # set info layouts
         self.info_layout_1.addWidget(self.bitcoin_logo_label)
         self.info_layout_1.addWidget(self.bitcoin_price_label)
+        self.info_layout_1.addWidget(self.dow_logo_label)
+        self.info_layout_1.addWidget(self.dow_price_label)
 
         self.info_layout_2.addWidget(self.etherium_logo_label)
         self.info_layout_2.addWidget(self.etherium_price_label)
+        self.info_layout_2.addWidget(self.nasdaq_logo_label)
+        self.info_layout_2.addWidget(self.nasdaq_price_label)
 
         self.info_layout_3.addWidget(self.litecoin_logo_label)
         self.info_layout_3.addWidget(self.litecoin_price_label)
+        self.info_layout_3.addWidget(self.sp500_logo_label)
+        self.info_layout_3.addWidget(self.sp500_price_label)
+
         self.info_widget_1 = QWidget()
         self.info_widget_2 = QWidget()
         self.info_widget_3 = QWidget()
@@ -196,6 +243,151 @@ class window(QWidget):
         self.date_label.setText(now.strftime("%B %d, %Y"))
         self.week_day_label.setText(now.strftime("%A"))
 
+    def updateCryptoPrices(self):
+        url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
+        parameters = {"start": "1", "limit": "150", "convert": "USD"}
+        headers = {
+            "Accepts": "application/json",
+            "X-CMC_PRO_API_KEY": "02e9907d-56c4-46c6-a9c7-d14c7af53f6f",
+        }
+
+        session = Session()
+        session.headers.update(headers)
+
+        response = session.get(url, params=parameters)
+        data = json.loads(response.text)
+
+        prices = {}
+        for crypto in data["data"]:
+            if crypto["name"] == "Bitcoin":
+                prices["BTC"] = crypto["quote"]["USD"]["price"]
+                prices["BTC-24-CHANGE"] = crypto["quote"]["USD"]["percent_change_24h"]
+            elif crypto["name"] == "Ethereum":
+                prices["ETH"] = crypto["quote"]["USD"]["price"]
+                prices["ETH-24-CHANGE"] = crypto["quote"]["USD"]["percent_change_24h"]
+            elif crypto["name"] == "Litecoin":
+                prices["LTC"] = crypto["quote"]["USD"]["price"]
+                prices["LTC-24-CHANGE"] = crypto["quote"]["USD"]["percent_change_24h"]
+
+        bitcoin_price = round(prices["BTC"])
+        litecoin_price = round(prices["LTC"])
+        etherium_price = round(prices["ETH"])
+        bitcoin_price_change = round(prices["BTC-24-CHANGE"], 2)
+        litecoin_price_change = round(prices["LTC-24-CHANGE"], 2)
+        etherium_price_change = round(prices["ETH-24-CHANGE"], 2)
+
+        if bitcoin_price_change < 0:
+            bitcoin_price_change = bitcoin_price_change * -1
+            black_text = f"${bitcoin_price:,} "
+            red_text = f"(-{bitcoin_price_change:,}%)"
+            total_text = f'{black_text}<span style="color: red;">{red_text}</span'
+            self.bitcoin_price_label.setText(total_text)
+            self.bitcoin_price_label.setTextFormat(Qt.RichText)
+        else:
+            black_text = f"${bitcoin_price:,} "
+            green_text = f"(+{bitcoin_price_change:,}%)"
+            total_text = f'{black_text}<span style="color: green;">{green_text}</span'
+            self.bitcoin_price_label.setText(total_text)
+            self.bitcoin_price_label.setTextFormat(Qt.RichText)
+
+        if litecoin_price_change < 0:
+            litecoin_price_change = litecoin_price_change * -1
+            black_text = f"${litecoin_price:,} "
+            red_text = f"(-{litecoin_price_change:,}%)"
+            total_text = f'{black_text}<span style="color: red;">{red_text}</span'
+            self.litecoin_price_label.setText(total_text)
+            self.litecoin_price_label.setTextFormat(Qt.RichText)
+        else:
+            black_text = f"${litecoin_price:,} "
+            green_text = f"(+{litecoin_price_change:,}%)"
+            total_text = f'{black_text}<span style="color: green;">{green_text}</span'
+            self.litecoin_price_label.setText(total_text)
+            self.litecoin_price_label.setTextFormat(Qt.RichText)
+
+        if etherium_price_change < 0:
+            etherium_price_change = etherium_price_change * -1
+            black_text = f"${etherium_price:,} "
+            red_text = f"(-{etherium_price_change:,}%)"
+            total_text = f'{black_text}<span style="color: red;">{red_text}</span'
+            self.etherium_price_label.setText(total_text)
+            self.etherium_price_label.setTextFormat(Qt.RichText)
+        else:
+            black_text = f"${etherium_price:,} "
+            green_text = f"(+{etherium_price_change:,}%)"
+            total_text = f'{black_text}<span style="color: green;">{green_text}</span'
+            self.etherium_price_label.setText(total_text)
+            self.etherium_price_label.setTextFormat(Qt.RichText)
+
+    def updateMarketPrices(self):
+
+        indexes = yf.Tickers("^GSPC ^DJI ^IXIC")
+        history_sp500 = indexes.tickers["^GSPC"].history(period="1d")
+        history_dow = indexes.tickers["^DJI"].history(period="1d")
+        history_nasdaq = indexes.tickers["^IXIC"].history(period="1d")
+
+        sp500_current_price = round(history_sp500["Close"].iloc[-1], 2)
+        dow_current_price = round(history_dow["Close"].iloc[-1], 2)
+        nasdaq_current_price = round(history_nasdaq["Close"].iloc[-1], 2)
+
+        sp500_previous_close = indexes.tickers["^GSPC"].info["previousClose"]
+        dow_previous_close = indexes.tickers["^DJI"].info["previousClose"]
+        nasdaq_previous_close = indexes.tickers["^IXIC"].info["previousClose"]
+
+        sp500_percentage_change = round(
+            ((sp500_current_price - sp500_previous_close) / sp500_previous_close) * 100,
+            2,
+        )
+
+        dow_percentage_change = round(
+            ((dow_current_price - dow_previous_close) / dow_previous_close) * 100,
+            2,
+        )
+
+        nasdaq_percentage_change = round(
+            ((nasdaq_current_price - nasdaq_previous_close) / nasdaq_previous_close)
+            * 100,
+            2,
+        )
+
+        if sp500_percentage_change <= 0:
+            black_text = f"${sp500_current_price:,} "
+            red_text = f"({sp500_percentage_change:,}%)"
+            total_text = f'{black_text}<span style="color: red;">{red_text}</span'
+            self.sp500_price_label.setText(total_text)
+            self.sp500_price_label.setTextFormat(Qt.RichText)
+        else:
+            black_text = f"${sp500_current_price:,} "
+            green_text = f"({sp500_percentage_change:,}%)"
+            total_text = f'{black_text}<span style="color: green;">{green_text}</span'
+            self.sp500_price_label.setText(total_text)
+            self.sp500_price_label.setTextFormat(Qt.RichText)
+
+        if dow_percentage_change <= 0:
+            black_text = f"${dow_current_price:,} "
+            red_text = f"({dow_percentage_change:,}%)"
+            total_text = f'{black_text}<span style="color: red;">{red_text}</span'
+            self.dow_price_label.setText(total_text)
+            self.dow_price_label.setTextFormat(Qt.RichText)
+        else:
+            black_text = f"${dow_current_price:,} "
+            green_text = f"({dow_percentage_change:,}%)"
+            total_text = f'{black_text}<span style="color: green;">{green_text}</span'
+            self.dow_price_label.setText(total_text)
+            self.dow_price_label.setTextFormat(Qt.RichText)
+
+        if nasdaq_percentage_change <= 0:
+            black_text = f"${nasdaq_current_price:,} "
+            red_text = f"({nasdaq_percentage_change:,}%)"
+            total_text = f'{black_text}<span style="color: red;">{red_text}</span'
+            self.nasdaq_price_label.setText(total_text)
+            self.nasdaq_price_label.setTextFormat(Qt.RichText)
+        else:
+            black_text = f"${nasdaq_current_price:,} "
+            green_text = f"({nasdaq_percentage_change:,}%)"
+            total_text = f'{black_text}<span style="color: green;">{green_text}</span'
+            self.nasdaq_price_label.setText(total_text)
+            self.nasdaq_price_label.setTextFormat(Qt.RichText)
+
     def updateInfoData(self):
 
         # Get the current time
@@ -207,106 +399,21 @@ class window(QWidget):
 
         # Check if current time is not between 6 AM and midnight
         if not (start_time <= current_time <= end_time):
-            url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
-            parameters = {"start": "1", "limit": "150", "convert": "USD"}
-            headers = {
-                "Accepts": "application/json",
-                "X-CMC_PRO_API_KEY": "02e9907d-56c4-46c6-a9c7-d14c7af53f6f",
-            }
-
-            session = Session()
-            session.headers.update(headers)
-
             try:
-                response = session.get(url, params=parameters)
-                data = json.loads(response.text)
-                price_BTC = data["data"][0]["quote"]["USD"]["price"]
-                price_ETH = data["data"][1]["quote"]["USD"]["price"]
-                # print(f"${price:,.2f}")
-                prices = {}
-                for crypto in data["data"]:
-                    if crypto["name"] == "Bitcoin":
-                        prices["BTC"] = crypto["quote"]["USD"]["price"]
-                        prices["BTC-24-CHANGE"] = crypto["quote"]["USD"][
-                            "percent_change_24h"
-                        ]
-                    elif crypto["name"] == "Ethereum":
-                        prices["ETH"] = crypto["quote"]["USD"]["price"]
-                        prices["ETH-24-CHANGE"] = crypto["quote"]["USD"][
-                            "percent_change_24h"
-                        ]
-                    elif crypto["name"] == "Litecoin":
-                        prices["LTC"] = crypto["quote"]["USD"]["price"]
-                        prices["LTC-24-CHANGE"] = crypto["quote"]["USD"][
-                            "percent_change_24h"
-                        ]
-
-                bitcoin_price = round(prices["BTC"])
-                litecoin_price = round(prices["LTC"])
-                etherium_price = round(prices["ETH"])
-                bitcoin_price_change = round(prices["BTC-24-CHANGE"], 2)
-                litecoin_price_change = round(prices["LTC-24-CHANGE"], 2)
-                etherium_price_change = round(prices["ETH-24-CHANGE"], 2)
-
-                if bitcoin_price_change < 0:
-                    bitcoin_price_change = bitcoin_price_change * -1
-                    black_text = f"${bitcoin_price:,} "
-                    red_text = f"(-{bitcoin_price_change:,}%)"
-                    total_text = (
-                        f'{black_text}<span style="color: red;">{red_text}</span'
-                    )
-                    self.bitcoin_price_label.setText(total_text)
-                    self.bitcoin_price_label.setTextFormat(Qt.RichText)
-                else:
-                    black_text = f"${bitcoin_price:,} "
-                    green_text = f"(+{bitcoin_price_change:,}%)"
-                    total_text = (
-                        f'{black_text}<span style="color: green;">{green_text}</span'
-                    )
-                    self.bitcoin_price_label.setText(total_text)
-                    self.bitcoin_price_label.setTextFormat(Qt.RichText)
-
-                if litecoin_price_change < 0:
-                    litecoin_price_change = litecoin_price_change * -1
-                    black_text = f"${litecoin_price:,} "
-                    red_text = f"(-{litecoin_price_change:,}%)"
-                    total_text = (
-                        f'{black_text}<span style="color: red;">{red_text}</span'
-                    )
-                    self.litecoin_price_label.setText(total_text)
-                    self.litecoin_price_label.setTextFormat(Qt.RichText)
-                else:
-                    black_text = f"${litecoin_price:,} "
-                    green_text = f"(+{litecoin_price_change:,}%)"
-                    total_text = (
-                        f'{black_text}<span style="color: green;">{green_text}</span'
-                    )
-                    self.litecoin_price_label.setText(total_text)
-                    self.litecoin_price_label.setTextFormat(Qt.RichText)
-
-                if etherium_price_change < 0:
-                    etherium_price_change = etherium_price_change * -1
-                    black_text = f"${etherium_price:,} "
-                    red_text = f"(-{etherium_price_change:,}%)"
-                    total_text = (
-                        f'{black_text}<span style="color: red;">{red_text}</span'
-                    )
-                    self.etherium_price_label.setText(total_text)
-                    self.etherium_price_label.setTextFormat(Qt.RichText)
-                else:
-                    black_text = f"${etherium_price:,} "
-                    green_text = f"(+{etherium_price_change:,}%)"
-                    total_text = (
-                        f'{black_text}<span style="color: green;">{green_text}</span'
-                    )
-                    self.etherium_price_label.setText(total_text)
-                    self.etherium_price_label.setTextFormat(Qt.RichText)
-
+                self.updateCryptoPrices()
             except (ConnectionError, Timeout, TooManyRedirects) as e:
                 print(e)
                 self.bitcoin_price_label.setText("Error!")
                 self.litecoin_price_label.setText("Error!")
                 self.etherium_price_label.setText("Error!")
+
+            try:
+                self.updateMarketPrices()
+            except (ConnectionError, Timeout, TooManyRedirects) as e:
+                print(e)
+                self.dow_price_label.setText("Error!")
+                self.nasdaq_price_label.setText("Error!")
+                self.sp500_price_label.setText("Error!")
             finally:
                 pyautogui.moveTo(150, 150)
                 pyautogui.click()
