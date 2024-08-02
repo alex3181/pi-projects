@@ -41,7 +41,7 @@ class window(QWidget):
 
         time_font = QFont()
         time_font.setFamily(font_family)
-        time_font.setPointSize(55)
+        time_font.setPointSize(70)
         time_font.bold()
 
         crypto_price_font = QFont()
@@ -55,7 +55,6 @@ class window(QWidget):
 
         # Set up a main Layout. It will be vertical
         self.main_layout = QVBoxLayout()
-        self.main_layout.setContentsMargins(0, 0, 0, 0)
 
         # Set up a date and time Layout. It will be horizontal
         self.date_time_layout = QHBoxLayout()
@@ -65,11 +64,11 @@ class window(QWidget):
 
         # Set up 3 information layouts. They will be horizontal
         self.info_layout_1 = QHBoxLayout()
-        self.info_layout_1.setContentsMargins(50, 0, 10, 0)
+        self.info_layout_1.setContentsMargins(50, 0, 0, 0)
         self.info_layout_2 = QHBoxLayout()
-        self.info_layout_2.setContentsMargins(50, 0, 10, 0)
+        self.info_layout_2.setContentsMargins(50, 0, 0, 0)
         self.info_layout_3 = QHBoxLayout()
-        self.info_layout_3.setContentsMargins(50, 0, 10, 0)
+        self.info_layout_3.setContentsMargins(50, 0, 0, 0)
 
         # create time label
         self.time_label = QLabel(self)
@@ -86,19 +85,10 @@ class window(QWidget):
         self.week_day_label.setFont(day_of_week_font)
         self.week_day_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        max_gap = 5
         crypto_logo_height = 55
         crypto_logo_label_width = 70
         info_widget_height = 55
-        clock_label_height = 170
-
-        # create gap2 label
-        self.gap1 = Color("black")
-        self.gap1.setMaximumWidth(max_gap)
-
-        # create gap2 label
-        self.gap2 = Color("black")
-        self.gap2.setMaximumHeight(max_gap)
+        clock_label_height = 160
 
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
@@ -147,7 +137,6 @@ class window(QWidget):
         self.date_widget.setLayout(self.date_layout)
 
         self.date_time_layout.addWidget(self.time_label)
-        self.date_time_layout.addWidget(self.gap1)
         self.date_time_layout.addWidget(self.date_widget)
         self.date_time_widget = QWidget()
         self.date_time_widget.setLayout(self.date_time_layout)
@@ -175,7 +164,6 @@ class window(QWidget):
         self.setLayout(self.main_layout)
 
         self.main_layout.addWidget(self.date_time_widget)
-        self.main_layout.addWidget(self.gap2)
         self.main_layout.addWidget(self.info_widget_1)
         self.main_layout.addWidget(self.info_widget_2)
         self.main_layout.addWidget(self.info_widget_3)
@@ -259,35 +247,60 @@ class window(QWidget):
                 bitcoin_price_change = round(prices["BTC-24-CHANGE"], 2)
                 litecoin_price_change = round(prices["LTC-24-CHANGE"], 2)
                 etherium_price_change = round(prices["ETH-24-CHANGE"], 2)
+
                 if bitcoin_price_change < 0:
                     bitcoin_price_change = bitcoin_price_change * -1
-                    self.bitcoin_price_label.setText(
-                        f"${bitcoin_price:,} (24 Hour: - {bitcoin_price_change:,}%)"
+                    black_text = f"${bitcoin_price:,} "
+                    red_text = f"(-{bitcoin_price_change:,}%)"
+                    total_text = (
+                        f'{black_text}<span style="color: red;">{red_text}</span'
                     )
+                    self.bitcoin_price_label.setText(total_text)
+                    self.bitcoin_price_label.setTextFormat(Qt.RichText)
                 else:
-                    self.bitcoin_price_label.setText(
-                        f"${bitcoin_price:,} (24 Hour: + {bitcoin_price_change:,}%)"
+                    black_text = f"${bitcoin_price:,} "
+                    green_text = f"(+{bitcoin_price_change:,}%)"
+                    total_text = (
+                        f'{black_text}<span style="color: green;">{green_text}</span'
                     )
+                    self.bitcoin_price_label.setText(total_text)
+                    self.bitcoin_price_label.setTextFormat(Qt.RichText)
 
                 if litecoin_price_change < 0:
                     litecoin_price_change = litecoin_price_change * -1
-                    self.litecoin_price_label.setText(
-                        f"${litecoin_price:,} (24 Hour: - {litecoin_price_change:,}%)"
+                    black_text = f"${litecoin_price:,} "
+                    red_text = f"(-{litecoin_price_change:,}%)"
+                    total_text = (
+                        f'{black_text}<span style="color: red;">{red_text}</span'
                     )
+                    self.litecoin_price_label.setText(total_text)
+                    self.litecoin_price_label.setTextFormat(Qt.RichText)
                 else:
-                    self.litecoin_price_label.setText(
-                        f"${litecoin_price:,} (24 Hour: + {litecoin_price_change:,}%)"
+                    black_text = f"${litecoin_price:,} "
+                    green_text = f"(+{litecoin_price_change:,}%)"
+                    total_text = (
+                        f'{black_text}<span style="color: green;">{green_text}</span'
                     )
+                    self.litecoin_price_label.setText(total_text)
+                    self.litecoin_price_label.setTextFormat(Qt.RichText)
 
                 if etherium_price_change < 0:
                     etherium_price_change = etherium_price_change * -1
-                    self.etherium_price_label.setText(
-                        f"${etherium_price:,} (24 Hours: - {etherium_price_change:,}%)"
+                    black_text = f"${etherium_price:,} "
+                    red_text = f"(-{etherium_price_change:,}%)"
+                    total_text = (
+                        f'{black_text}<span style="color: red;">{red_text}</span'
                     )
+                    self.etherium_price_label.setText(total_text)
+                    self.etherium_price_label.setTextFormat(Qt.RichText)
                 else:
-                    self.etherium_price_label.setText(
-                        f"${etherium_price:,} (24 Hours: + {etherium_price_change:,}%)"
+                    black_text = f"${etherium_price:,} "
+                    green_text = f"(+{etherium_price_change:,}%)"
+                    total_text = (
+                        f'{black_text}<span style="color: green;">{green_text}</span'
                     )
+                    self.etherium_price_label.setText(total_text)
+                    self.etherium_price_label.setTextFormat(Qt.RichText)
 
             except (ConnectionError, Timeout, TooManyRedirects) as e:
                 print(e)
