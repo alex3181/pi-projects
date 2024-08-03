@@ -412,7 +412,7 @@ class window(QWidget):
         if not (start_time <= current_time <= end_time):
             try:
                 self.updateCryptoPrices()
-            except (ConnectionError, Timeout, TooManyRedirects) as e:
+            except (ConnectionError, Timeout, TooManyRedirects, IndexError) as e:
                 print(e)
                 self.bitcoin_price_label.setText("Error!")
                 self.litecoin_price_label.setText("Error!")
@@ -420,7 +420,7 @@ class window(QWidget):
 
             try:
                 self.updateMarketPrices()
-            except (ConnectionError, Timeout, TooManyRedirects) as e:
+            except (ConnectionError, Timeout, TooManyRedirects, IndexError) as e:
                 print(e)
                 self.dow_price_label.setText("Error!")
                 self.nasdaq_price_label.setText("Error!")
