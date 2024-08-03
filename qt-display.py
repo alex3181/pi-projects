@@ -165,21 +165,21 @@ class window(QWidget):
         dow_price = 39700.00
         self.dow_price_label.setText(f"${round(dow_price):,}")
         self.dow_price_label.setFont(price_font)
-        self.dow_price_label.setAlignment(Qt.AlignRight)
+        self.dow_price_label.setAlignment(Qt.AlignLeft)
 
         # create nasdaq price label
         self.nasdaq_price_label = QLabel(self)
         nasdaq_price = 16700.36
         self.nasdaq_price_label.setText(f"${round(nasdaq_price):,}")
         self.nasdaq_price_label.setFont(price_font)
-        self.nasdaq_price_label.setAlignment(Qt.AlignRight)
+        self.nasdaq_price_label.setAlignment(Qt.AlignLeft)
 
         # create sp500 price label
         self.sp500_price_label = QLabel(self)
         sp500_price = 5340.36
         self.sp500_price_label.setText(f"${round(sp500_price):,}")
         self.sp500_price_label.setFont(price_font)
-        self.sp500_price_label.setAlignment(Qt.AlignRight)
+        self.sp500_price_label.setAlignment(Qt.AlignLeft)
 
         # set date and time layouts
         self.date_layout.addWidget(self.week_day_label)
