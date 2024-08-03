@@ -133,7 +133,7 @@ class window(QWidget):
 
         # create label with sp500 logo
         self.sp500_logo_label = QLabel(self)
-        pixmap = QPixmap("images/sp500.png")
+        pixmap = QPixmap("images/sp.png")
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.sp500_logo_label.setPixmap(pixmap_resized)
         self.sp500_logo_label.setFixedWidth(logo_label_width)
