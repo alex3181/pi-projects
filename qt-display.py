@@ -95,6 +95,8 @@ class window(QWidget):
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
 
+        # /home/alex3181/Projects/pi-projects/images
+
         pixmap = QPixmap(path.join(".", "images", "bitcoin.png"))
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.bitcoin_logo_label.setPixmap(pixmap_resized)
