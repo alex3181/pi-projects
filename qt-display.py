@@ -2,7 +2,7 @@ import sys
 import datetime
 import pyautogui
 import yfinance as yf
-from os import path
+import platform
 
 
 from requests import Request, Session
@@ -95,17 +95,16 @@ class window(QWidget):
         # create label with bitcoin logo
         self.bitcoin_logo_label = QLabel(self)
 
-        # /home/alex3181/Projects/pi-projects/images
+        os_name = platform.system()
 
-        images_folder = path.join(
-            "home", "alex3181", "Projects", "pi-projects", "images"
-        )
+        print("OS NAME: " + os_name)
 
-        etherium_logo_file = path.join(
-            "home", "alex3181", "Projects", "pi-projects", "images", "etherium.png"
-        )
+        if os_name.upper() != "WINDOWS":
+            images_folder = "/home/alex3181/Projects/pi-projects/images/"
+        else:
+            images_folder = "images\\"
 
-        pixmap = QPixmap("/home/alex3181/Projects/pi-projects/images/bitcoin.png")
+        pixmap = QPixmap(images_folder + "bitcoin.png")
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.bitcoin_logo_label.setPixmap(pixmap_resized)
         self.bitcoin_logo_label.setFixedWidth(logo_label_width)
@@ -113,7 +112,7 @@ class window(QWidget):
 
         # create label with etherium logo
         self.etherium_logo_label = QLabel(self)
-        pixmap = QPixmap(etherium_logo_file)
+        pixmap = QPixmap(images_folder + "etherium.png")
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.etherium_logo_label.setPixmap(pixmap_resized)
         self.etherium_logo_label.setFixedWidth(logo_label_width)
@@ -121,7 +120,7 @@ class window(QWidget):
 
         # create label with litecoin logo
         self.litecoin_logo_label = QLabel(self)
-        pixmap = QPixmap("./images/litecoin.png")
+        pixmap = QPixmap(images_folder + "litecoin.png")
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.litecoin_logo_label.setPixmap(pixmap_resized)
         self.litecoin_logo_label.setFixedWidth(logo_label_width)
@@ -129,7 +128,7 @@ class window(QWidget):
 
         # create label with dow logo
         self.dow_logo_label = QLabel(self)
-        pixmap = QPixmap("./images/litecoin.png")
+        pixmap = QPixmap(images_folder + "dow.png")
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.dow_logo_label.setPixmap(pixmap_resized)
         self.dow_logo_label.setFixedWidth(logo_label_width)
@@ -137,7 +136,7 @@ class window(QWidget):
 
         # create label with nasdaq logo
         self.nasdaq_logo_label = QLabel(self)
-        pixmap = QPixmap("./images/litecoin.png")
+        pixmap = QPixmap(images_folder + "nasdaq.png")
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.nasdaq_logo_label.setPixmap(pixmap_resized)
         self.nasdaq_logo_label.setFixedWidth(logo_label_width)
@@ -145,7 +144,7 @@ class window(QWidget):
 
         # create label with sp500 logo
         self.sp500_logo_label = QLabel(self)
-        pixmap = QPixmap("./images/litecoin.png")
+        pixmap = QPixmap(images_folder + "sp.png")
         pixmap_resized = pixmap.scaledToHeight(logo_height)
         self.sp500_logo_label.setPixmap(pixmap_resized)
         self.sp500_logo_label.setFixedWidth(logo_label_width)
