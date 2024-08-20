@@ -97,8 +97,6 @@ class window(QWidget):
 
         os_name = platform.system()
 
-        print("OS NAME: " + os_name)
-
         if os_name.upper() != "WINDOWS":
             images_folder = "/home/alex3181/Projects/pi-projects/images/"
         else:
@@ -251,7 +249,7 @@ class window(QWidget):
 
         self.info_data_timer = QTimer(self)
         self.info_data_timer.timeout.connect(self.updateInfoData)
-        self.info_data_timer.start(60_000)  # Update every minute
+        self.info_data_timer.start(240_000)  # Update every 4 minutes
 
         self.updateDateTimeInfo()
         self.updateInfoData()
@@ -423,16 +421,28 @@ class window(QWidget):
         if not (start_time <= current_time <= end_time):
             try:
                 self.updateCryptoPrices()
-            except (ConnectionError, Timeout, TooManyRedirects, IndexError) as e:
-                print(e)
+            except (
+                ConnectionError,
+                Timeout,
+                TooManyRedirects,
+                IndexError,
+                KeyError,
+            ) as e:
+                print(f"update Crypto Prices Error ----> {e}")
                 self.bitcoin_price_label.setText("Error!")
                 self.litecoin_price_label.setText("Error!")
                 self.etherium_price_label.setText("Error!")
 
             try:
                 self.updateMarketPrices()
-            except (ConnectionError, Timeout, TooManyRedirects, IndexError) as e:
-                print(e)
+            except (
+                ConnectionError,
+                Timeout,
+                TooManyRedirects,
+                IndexError,
+                KeyError,
+            ) as e:
+                print(f"update Market Prices Error ----> {e}")
                 self.dow_price_label.setText("Error!")
                 self.nasdaq_price_label.setText("Error!")
                 self.sp500_price_label.setText("Error!")
