@@ -150,42 +150,42 @@ class window(QWidget):
 
         # create bitcoin price label
         self.bitcoin_price_label = QLabel(self)
-        bitcoin_price = 69000.32
+        bitcoin_price = 0.00
         self.bitcoin_price_label.setText(f"${round(bitcoin_price):,}")
         self.bitcoin_price_label.setFont(price_font)
         self.bitcoin_price_label.setAlignment(Qt.AlignLeft)
 
         # create litecoin price label
         self.litecoin_price_label = QLabel(self)
-        litecoin_price = 76.32
+        litecoin_price = 0.00
         self.litecoin_price_label.setText(f"${round(litecoin_price):,}")
         self.litecoin_price_label.setFont(price_font)
         self.litecoin_price_label.setAlignment(Qt.AlignLeft)
 
         # create etherium price label
         self.etherium_price_label = QLabel(self)
-        etherium_price = 3450.36
+        etherium_price = 0.00
         self.etherium_price_label.setText(f"${round(etherium_price):,}")
         self.etherium_price_label.setFont(price_font)
         self.etherium_price_label.setAlignment(Qt.AlignLeft)
 
         # create dow price label
         self.dow_price_label = QLabel(self)
-        dow_price = 39700.00
+        dow_price = 0.00
         self.dow_price_label.setText(f"${round(dow_price):,}")
         self.dow_price_label.setFont(price_font)
         self.dow_price_label.setAlignment(Qt.AlignLeft)
 
         # create nasdaq price label
         self.nasdaq_price_label = QLabel(self)
-        nasdaq_price = 16700.36
+        nasdaq_price = 0.00
         self.nasdaq_price_label.setText(f"${round(nasdaq_price):,}")
         self.nasdaq_price_label.setFont(price_font)
         self.nasdaq_price_label.setAlignment(Qt.AlignLeft)
 
         # create sp500 price label
         self.sp500_price_label = QLabel(self)
-        sp500_price = 5340.36
+        sp500_price = 0.00
         self.sp500_price_label.setText(f"${round(sp500_price):,}")
         self.sp500_price_label.setFont(price_font)
         self.sp500_price_label.setAlignment(Qt.AlignLeft)
@@ -245,14 +245,19 @@ class window(QWidget):
     def runDisplay(self):
         self.date_time_timer = QTimer(self)
         self.date_time_timer.timeout.connect(self.updateDateTimeInfo)
-        self.date_time_timer.start(1000)  # Update every second
+        self.date_time_timer.start(1_000)  # Update every second
 
-        self.info_data_timer = QTimer(self)
-        self.info_data_timer.timeout.connect(self.updateInfoData)
-        self.info_data_timer.start(240_000)  # Update every 4 minutes
+        self.crypto_data_timer = QTimer(self)
+        self.crypto_data_timer.timeout.connect(self.updateCryptoData)
+        self.crypto_data_timer.start(200_000)  # Update every 3 minutes and 20 seconds
+
+        self.stock_data_timer = QTimer(self)
+        self.stock_data_timer.timeout.connect(self.updateStockData)
+        self.stock_data_timer.start(10_000)  # Update every 10 seconds
 
         self.updateDateTimeInfo()
-        self.updateInfoData()
+        self.updateCryptoData()
+        self.initialStockData()
         self.resize(800, 480)
         self.setWindowTitle("PyQt5")
         self.show()
@@ -408,7 +413,7 @@ class window(QWidget):
             self.nasdaq_price_label.setText(total_text)
             self.nasdaq_price_label.setTextFormat(Qt.RichText)
 
-    def updateInfoData(self):
+    def updateCryptoData(self):
 
         # Get the current time
         current_time = datetime.datetime.now().time()
@@ -432,6 +437,22 @@ class window(QWidget):
                 self.bitcoin_price_label.setText("Error!")
                 self.litecoin_price_label.setText("Error!")
                 self.etherium_price_label.setText("Error!")
+            finally:
+                pyautogui.moveTo(150, 150)
+                pyautogui.click()
+
+    def updateStockData(self):
+
+        # Get the current time and day
+        current_time = datetime.datetime.now().time()
+        current_day = datetime.datetime.today()
+
+        # Define the time range
+        start_time = datetime.time(9, 30)  # 0930 Start of market
+        end_time = datetime.time(16, 1)  # 1600 End of market
+
+        # Check if current time is during market hours
+        if (start_time <= current_time <= end_time) and (current_day.weekday() < 5):
 
             try:
                 self.updateMarketPrices()
@@ -446,9 +467,22 @@ class window(QWidget):
                 self.dow_price_label.setText("Error!")
                 self.nasdaq_price_label.setText("Error!")
                 self.sp500_price_label.setText("Error!")
-            finally:
-                pyautogui.moveTo(150, 150)
-                pyautogui.click()
+
+    def initialStockData(self):
+
+        try:
+            self.updateMarketPrices()
+        except (
+            ConnectionError,
+            Timeout,
+            TooManyRedirects,
+            IndexError,
+            KeyError,
+        ) as e:
+            print(f"update Market Prices Error ----> {e}")
+            self.dow_price_label.setText("Error!")
+            self.nasdaq_price_label.setText("Error!")
+            self.sp500_price_label.setText("Error!")
 
 
 def main():
