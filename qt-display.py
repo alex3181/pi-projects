@@ -3,9 +3,10 @@ import datetime
 import pyautogui
 import yfinance as yf
 import platform
+import secret
 
 
-from requests import Request, Session
+from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 from time import sleep
