@@ -3,13 +3,10 @@ import datetime
 import pyautogui
 import yfinance as yf
 import platform
-import secret
-
 
 from requests import Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
-from time import sleep
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
