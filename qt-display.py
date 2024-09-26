@@ -417,14 +417,14 @@ class window(QWidget):
     def updateCryptoData(self):
 
         # Get the current time
-        current_time = datetime.datetime.now().time()
+        current_time2 = datetime.datetime.now().time()
 
         # Define the time range
         start_time = datetime.time(0, 0)  # Midnight
         end_time = datetime.time(6, 0)  # 6 AM
 
         # Check if current time is not between 6 AM and midnight
-        if not (start_time <= current_time <= end_time):
+        if not (start_time <= current_time2 <= end_time):
             try:
                 self.updateCryptoPrices()
             except (
@@ -489,7 +489,7 @@ class window(QWidget):
 def main():
     app = QApplication(sys.argv)
     ex = window()
-    ex.showFullScreen()  # show fullscreen
+    # ex.showFullScreen()  # show fullscreen
     ex.show()
     sys.exit(app.exec_())
 
